@@ -1,4 +1,12 @@
 # AI_ML_Learning
+-[Anthropic for Devs](https://github.com/anthropics)
+-[Spec Driven Dev with markdown](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-using-markdown-as-a-programming-language-when-building-with-ai/)
+-[Reasoning with Sampling](https://aakaran.github.io/reasoning_with_sampling/)
+-[Claude Code News](https://www.anthropic.com/news)
+-[Using Haiku as a Subagent](https://github.com/anthropics/claude-cookbooks/blob/main/multimodal/using_sub_agents.ipynb)
+-[Self Adapting Language Models](https://arxiv.org/abs/2506.10943)
+-[NanoChat OpenAI Founders opensource](https://github.com/karpathy/nanochat)
+-[Spec Driven Dev with AI](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/)
 
 A comprehensive collection of essential repositories and documentation for AI/ML developers, plus a complete Python environment for training machine learning models.
 
