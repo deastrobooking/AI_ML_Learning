@@ -14,6 +14,11 @@
 - [BIX Bench](https://huggingface.co/datasets/futurehouse/BixBench)
 - [Bix Bench Arxiv](https://arxiv.org/abs/2503.00096)
 - [IBM Granite](https://huggingface.co/ibm-granite)
+- [Kaggle Playbook NVIDIA](https://developer.nvidia.com/blog/the-kaggle-grandmasters-playbook-7-battle-tested-modeling-techniques-for-tabular-data/)
+- [Adventures in Triton Kernels](https://ut21.github.io/blog/triton.html)
+- [Hierachecal Reasoning Model ARXIV](https://arxiv.org/abs/2506.21734)
+- [Weivate Fine Tuning](https://weaviate.io/blog/fine-tune-embedding-model)
+- [Routine: A Structural Planning Framework for LLM Agent System in Enterprise](https://arxiv.org/abs/2507.14447)
 - 
 A comprehensive collection of essential repositories and documentation for AI/ML developers, plus a complete Python environment for training machine learning models.
 
