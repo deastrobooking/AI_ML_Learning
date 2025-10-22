@@ -11,6 +11,9 @@
 - [EBOOK LLM PARSER/READER](https://github.com/lfnovo/open-notebook)
 - [MINIMIND](https://github.com/jingyaogong/minimind/tree/master)
 - [QWEN CHAT](https://chat.qwen.ai/?models=qwen3-vl-32b)
+- [BIX Bench](https://huggingface.co/datasets/futurehouse/BixBench)
+- [Bix Bench Arxiv](https://arxiv.org/abs/2503.00096)
+- [IBM Granite](https://huggingface.co/ibm-granite)
 - 
 A comprehensive collection of essential repositories and documentation for AI/ML developers, plus a complete Python environment for training machine learning models.
 
