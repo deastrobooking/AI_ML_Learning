@@ -1,4 +1,5 @@
 # AI_ML_Learning
+- [Google ScholarAI](https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence)
 - [Anthropic for Devs](https://github.com/anthropics)
 - [Spec Driven Dev with markdown](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-using-markdown-as-a-programming-language-when-building-with-ai/)
 - [Reasoning with Sampling](https://aakaran.github.io/reasoning_with_sampling/)
