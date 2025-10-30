@@ -1,4 +1,10 @@
 # AI_ML_Learning
+- [Everything about Transformers](https://www.krupadave.com/articles/everything-about-transformers)
+- [Cognition SWE 1-5](https://cognition.ai/blog/swe-1-5)
+- [Tinker Research and Teaching Grants](https://thinkingmachines.ai/blog/tinker-research-and-teaching-grants/)
+- [GPT OSS](https://openai.com/index/introducing-gpt-oss-safeguard/)
+- [Instrospection in LLM's](https://www.anthropic.com/research/introspection)
+- [Cursorblog](https://cursor.com/blog/2-0)
 - [ARC PRIZE WINNER KAGGLE COMPRESSARC](https://www.kaggle.com/code/boristown/agi-compressarc)
 - [Google ScholarAI](https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence)
 - [Anthropic for Devs](https://github.com/anthropics)
