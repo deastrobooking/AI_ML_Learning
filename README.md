@@ -36,196 +36,6 @@ https://www.technologyreview.com/
 www.github.com 
 arxiv.org
 
-
-## Table of Contents
-- [Setup Guide](#setup-guide)
-- [Project Structure](#project-structure)
-- [Quick Start](#quick-start)
-- [📚 Documentation](#-documentation)
-- [Quick Links](#quick-links)
-- [Frameworks & Libraries](#frameworks--libraries)
-- [Large Language Models](#large-language-models)
-- [AI Agents & Tools](#ai-agents--tools)
-- [Computer Vision](#computer-vision)
-- [Natural Language Processing](#natural-language-processing)
-- [Reinforcement Learning](#reinforcement-learning)
-- [MLOps & Production](#mlops--production)
-- [Educational Resources](#educational-resources)
-- [Documentation & References](#documentation--references)
-- [Research Papers & Implementations](#research-papers--implementations)
-
----
-
-## Setup Guide
-
-### Prerequisites
-- Python 3.8 or higher
-- CUDA-capable GPU (optional, but recommended for training)
-- Git
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/deastrobooking/AI_ML_Learning.git
-cd AI_ML_Learning
-```
-
-2. **Create a virtual environment**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. **Install dependencies**
-```bash
-# Install core dependencies
-pip install -r requirements.txt
-
-# For development (optional)
-pip install -r requirements-dev.txt
-
-# Or install in editable mode
-pip install -e .
-```
-
-4. **Set up environment variables**
-```bash
-cp .env.example .env
-# Edit .env with your API keys and configuration
-```
-
-5. **Verify installation**
-```bash
-python -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}')"
-```
-
----
-
-## Project Structure
-
-```
-AI_ML_Learning/
-├── configs/              # Configuration files
-│   └── train_config.yaml
-├── data/                 # Data directory
-│   ├── raw/             # Raw data
-│   └── processed/       # Processed data
-├── models/              # Model storage
-│   ├── saved/           # Trained models
-│   └── checkpoints/     # Training checkpoints
-├── notebooks/           # Jupyter notebooks
-├── scripts/             # Training and utility scripts
-│   ├── train_image_classifier.py
-│   └── train_sklearn_model.py
-├── src/                 # Source code
-│   ├── __init__.py
-│   ├── data_utils.py    # Data loading utilities
-│   ├── models.py        # Model architectures
-│   └── training.py      # Training utilities
-├── tests/               # Unit tests
-│   └── test_models.py
-├── logs/                # Training logs
-├── .env.example         # Environment variables template
-├── .gitignore
-├── requirements.txt     # Python dependencies
-├── requirements-dev.txt # Development dependencies
-├── setup.py            # Package setup
-└── README.md
-```
-
----
-
-## Quick Start
-
-### Training an Image Classifier
-
-```bash
-# Using PyTorch with a simple CNN
-python scripts/train_image_classifier.py \
-    --data_dir ./data/raw \
-    --model simple_cnn \
-    --num_classes 10 \
-    --batch_size 32 \
-    --epochs 20 \
-    --lr 0.001
-
-# Using a pretrained ResNet
-python scripts/train_image_classifier.py \
-    --data_dir ./data/raw \
-    --model resnet \
-    --num_classes 10 \
-    --batch_size 32 \
-    --epochs 10 \
-    --lr 0.0001
-```
-
-### Training on Tabular Data
-
-```bash
-python scripts/train_sklearn_model.py \
-    --data_path ./data/raw/dataset.csv \
-    --target_col target \
-    --model random_forest \
-    --experiment_name my_experiment
-```
-
-### Using the Python API
-
-```python
-import torch
-from src.models import get_model
-from src.training import Trainer, get_optimizer
-
-# Create model
-model = get_model('simple_cnn', num_classes=10)
-
-# Setup training
-optimizer = get_optimizer(model, 'adam', lr=0.001)
-criterion = torch.nn.CrossEntropyLoss()
-
-# Train (assuming you have train_loader and val_loader)
-trainer = Trainer(
-    model=model,
-    train_loader=train_loader,
-    val_loader=val_loader,
-    criterion=criterion,
-    optimizer=optimizer,
-    device='cuda'
-)
-
-history = trainer.fit(num_epochs=10)
-```
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest tests/
-
-# Run specific test file
-pytest tests/test_models.py
-
-# Run with coverage
-pytest tests/ --cov=src
-```
-
-### Jupyter Notebooks
-
-```bash
-# Start Jupyter Lab
-jupyter lab
-
-# Or Jupyter Notebook
-jupyter notebook
-```
-
----
-
-## 📚 Documentation
-
-Comprehensive guides and tutorials for learning AI/ML are available in the `/docs` directory!
-
 ### 🎓 For Beginners
 - **[Beginner's Guide to AI/ML](docs/guides/beginners-guide.md)** - Start here if you're new!
 - [Neural Networks 101](docs/guides/neural-networks-101.md)
@@ -452,6 +262,196 @@ Comprehensive guides and tutorials for learning AI/ML are available in the `/doc
 - [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) - Diffusion models explained
 
 ---
+
+
+## Table of Contents
+- [Setup Guide](#setup-guide)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [📚 Documentation](#-documentation)
+- [Quick Links](#quick-links)
+- [Frameworks & Libraries](#frameworks--libraries)
+- [Large Language Models](#large-language-models)
+- [AI Agents & Tools](#ai-agents--tools)
+- [Computer Vision](#computer-vision)
+- [Natural Language Processing](#natural-language-processing)
+- [Reinforcement Learning](#reinforcement-learning)
+- [MLOps & Production](#mlops--production)
+- [Educational Resources](#educational-resources)
+- [Documentation & References](#documentation--references)
+- [Research Papers & Implementations](#research-papers--implementations)
+
+---
+
+## Setup Guide
+
+### Prerequisites
+- Python 3.8 or higher
+- CUDA-capable GPU (optional, but recommended for training)
+- Git
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/deastrobooking/AI_ML_Learning.git
+cd AI_ML_Learning
+```
+
+2. **Create a virtual environment**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. **Install dependencies**
+```bash
+# Install core dependencies
+pip install -r requirements.txt
+
+# For development (optional)
+pip install -r requirements-dev.txt
+
+# Or install in editable mode
+pip install -e .
+```
+
+4. **Set up environment variables**
+```bash
+cp .env.example .env
+# Edit .env with your API keys and configuration
+```
+
+5. **Verify installation**
+```bash
+python -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}')"
+```
+
+---
+
+## Project Structure
+
+```
+AI_ML_Learning/
+├── configs/              # Configuration files
+│   └── train_config.yaml
+├── data/                 # Data directory
+│   ├── raw/             # Raw data
+│   └── processed/       # Processed data
+├── models/              # Model storage
+│   ├── saved/           # Trained models
+│   └── checkpoints/     # Training checkpoints
+├── notebooks/           # Jupyter notebooks
+├── scripts/             # Training and utility scripts
+│   ├── train_image_classifier.py
+│   └── train_sklearn_model.py
+├── src/                 # Source code
+│   ├── __init__.py
+│   ├── data_utils.py    # Data loading utilities
+│   ├── models.py        # Model architectures
+│   └── training.py      # Training utilities
+├── tests/               # Unit tests
+│   └── test_models.py
+├── logs/                # Training logs
+├── .env.example         # Environment variables template
+├── .gitignore
+├── requirements.txt     # Python dependencies
+├── requirements-dev.txt # Development dependencies
+├── setup.py            # Package setup
+└── README.md
+```
+
+---
+
+## Quick Start
+
+### Training an Image Classifier
+
+```bash
+# Using PyTorch with a simple CNN
+python scripts/train_image_classifier.py \
+    --data_dir ./data/raw \
+    --model simple_cnn \
+    --num_classes 10 \
+    --batch_size 32 \
+    --epochs 20 \
+    --lr 0.001
+
+# Using a pretrained ResNet
+python scripts/train_image_classifier.py \
+    --data_dir ./data/raw \
+    --model resnet \
+    --num_classes 10 \
+    --batch_size 32 \
+    --epochs 10 \
+    --lr 0.0001
+```
+
+### Training on Tabular Data
+
+```bash
+python scripts/train_sklearn_model.py \
+    --data_path ./data/raw/dataset.csv \
+    --target_col target \
+    --model random_forest \
+    --experiment_name my_experiment
+```
+
+### Using the Python API
+
+```python
+import torch
+from src.models import get_model
+from src.training import Trainer, get_optimizer
+
+# Create model
+model = get_model('simple_cnn', num_classes=10)
+
+# Setup training
+optimizer = get_optimizer(model, 'adam', lr=0.001)
+criterion = torch.nn.CrossEntropyLoss()
+
+# Train (assuming you have train_loader and val_loader)
+trainer = Trainer(
+    model=model,
+    train_loader=train_loader,
+    val_loader=val_loader,
+    criterion=criterion,
+    optimizer=optimizer,
+    device='cuda'
+)
+
+history = trainer.fit(num_epochs=10)
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest tests/
+
+# Run specific test file
+pytest tests/test_models.py
+
+# Run with coverage
+pytest tests/ --cov=src
+```
+
+### Jupyter Notebooks
+
+```bash
+# Start Jupyter Lab
+jupyter lab
+
+# Or Jupyter Notebook
+jupyter notebook
+```
+
+---
+
+## 📚 Documentation
+
+Comprehensive guides and tutorials for learning AI/ML are available in the `/docs` directory!
 
 ## Contributing
 
