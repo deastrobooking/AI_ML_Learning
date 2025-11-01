@@ -1,3 +1,180 @@
+Great question — **storage format, labeling, preparation, and tooling** are critical for **efficient, scalable, and AI-ready** code/math datasets.
+
+Below is a **battle-tested framework** used by top labs (DeepMind, OpenAI, Meta, Google) when building datasets like **AlphaCode**, **MATH**, **HumanEval**, or **CodeContests**.
+
+---
+
+## 1. **Best Storage Format: Parquet (Primary) + JSONL (Secondary)**
+
+| Format | Use Case | Pros | Cons |
+|-------|--------|------|------|
+| **Parquet** | **Primary storage & training** | Columnar, compressed, fast reads, schema-enforced, Spark/HF/Pandas native | Binary (not human-readable) |
+| **JSONL** | **Debugging, inspection, LLM prompting** | Human-readable, line-by-line, easy to filter/grep | Larger, slower, no schema |
+| **CSV** | Legacy / quick sharing | Universal | No nesting, slow, no compression |
+| **SQLite** | Small datasets (<1M rows) | Queryable, portable | Not scalable |
+
+> **Winner: Store in Parquet, keep JSONL for inspection.**
+
+```bash
+# Example: Convert JSONL → Parquet
+import pandas as pd
+df = pd.read_json("math_problems.jsonl", lines=True)
+df.to_parquet("math_problems.parquet", compression="zstd")
+```
+
+---
+
+## 2. **Dataset Structure & Schema (Code & Math)**
+
+### A. **Code Dataset Schema (Parquet columns)**
+
+| Column | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique ID (e.g., `github-py-uuid`) |
+| `repo` | string | Source repo (for train/test split) |
+| `path` | string | File path |
+| `language` | string | `python`, `java`, etc. |
+| `code` | string | Raw code snippet |
+| `docstring` | string | Function/class doc (if any) |
+| `tests` | list[string] | Unit tests (JSON-encoded) |
+| `signature` | string | Function signature |
+| `complexity` | float | Cyclomatic complexity (optional) |
+| `license` | string | SPDX identifier |
+| `split` | string | `train` / `val` / `test` |
+
+> **Pro tip**: Store `tests` as JSON string in column → parse on-the-fly.
+
+### B. **Math Dataset Schema**
+
+| Column | Type | Description |
+|-------|------|-------------|
+| `id` | string | `aime-2020-q12` |
+| `source` | string | `AIME`, `AMC`, `synthetic` |
+| `difficulty` | int | 1–10 |
+| `problem` | string | Full text |
+| `solution` | string | Final answer (e.g., `42`) |
+| `cot` | string | Chain-of-thought (step-by-step) |
+| `concepts` | list[string] | `["algebra", "geometry"]` |
+| `latex` | string | Full LaTeX rendering |
+| `verified` | bool | Passed solver check |
+| `split` | string | `train`/`val`/`test` |
+
+---
+
+## 3. **Labeling Strategy: Auto + Verified + Iterative**
+
+| Step | Method | Tools |
+|------|-------|-------|
+| **1. Auto-label** | Heuristics + LLMs | `pylint`, `docstring-parser`, `gpt-4-turbo` |
+| **2. Verify** | Execution / Solvers | `pytest`, `SymPy`, `Z3`, `Lean` |
+| **3. Clean** | Dedup + filter | `minhash`, `exact dedup` |
+| **4. Augment** | CoT, tests, rephrasing | `DSPy`, `LangChain`, `vLLM` |
+
+### Example: Auto-label Code
+```python
+import ast
+
+def extract_functions(code):
+    tree = ast.parse(code)
+    return [node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
+```
+
+### Example: Verify Math
+```python
+from sympy import solve, symbols
+x = symbols('x')
+eq = "x**2 - 5*x + 6"
+assert solve(eq) == [2, 3]  # Auto-verify
+```
+
+---
+
+## 4. **Tools Stack (End-to-End Pipeline)**
+
+| Task | Tool | Why |
+|------|------|-----|
+| **Crawling** | `GitHub API`, `BigQuery Public Datasets` | Free, legal, diverse |
+| **Scraping** | `BeautifulSoup`, `Playwright` | For math forums, PDFs |
+| **Processing** | `Apache Spark`, `Polars`, `Dask` | 100M+ rows |
+| **Storage** | `Parquet` + `S3` / `GCS` | Cheap, scalable |
+| **Versioning** | `DVC`, `LakeFS`, `Delta Lake` | Reproducible |
+| **Labeling** | `Label Studio`, `Prodigy`, `Snorkel` | Hybrid auto+human |
+| **Verification** | `Code Executers`, `Lean`, `Isabelle` | Zero hallucination |
+| **Training Prep** | `Hugging Face Datasets`, `TensorFlow Datasets` | Seamless loading |
+| **Monitoring** | `Weights & Biases`, `Comet` | Track data drift |
+
+---
+
+## 5. **Preparation Pipeline (Step-by-Step)**
+
+```mermaid
+graph TD
+    A[Raw Sources] --> B[Crawl/Scrape]
+    B --> C[Normalize → JSONL]
+    C --> D[Auto-label + Extract]
+    D --> E[Verify: Code Exec / Math Solver]
+    E --> F[Dedup + Filter]
+    F --> G[Split: Repo/Topic-Level]
+    G --> H[Convert → Parquet]
+    H --> I[Push to HF / S3]
+    I --> J[Load in Trainer]
+```
+
+### Example: `prepare_code.py`
+```python
+import datasets
+from datasets import load_dataset
+
+ds = load_dataset("json", data_files="raw_code.jsonl")
+ds = ds.map(extract_tests, batched=True)
+ds = ds.filter(lambda x: x["tests"] is not None)
+ds = ds.train_test_split(test_size=0.1, seed=42, stratify_by_column="repo")
+ds.save_to_disk("processed/code_hf")
+```
+
+---
+
+## 6. **Best Practices Summary**
+
+| Do | Don’t |
+|------|---------|
+| Use **Parquet** for training | Use **CSV** at scale |
+| Split by **repo/problem set** | Random split (leakage!) |
+| Store **tests/solutions** | Train on code without validation |
+| Verify **every sample** | Trust LLM output blindly |
+| Version **data + code** | Re-run without reproducibility |
+
+---
+
+## Recommended Starter Kits
+
+| Domain | Repo |
+|-------|------|
+| Code | [princeton-nlp/SWE-bench](https://github.com/princeton-nlp/SWE-bench) |
+| Math | [hendrycks/math](https://github.com/hendrycks/math) |
+| Pipeline | [Hugging Face `datasets` CLI](https://huggingface.co/docs/datasets/) |
+| Synth | [microsoft/ProphetNet](https://github.com/microsoft/ProphetNet) (math synth ideas) |
+
+---
+
+## Final Recommendation
+
+> **Store in `Parquet` → Label with auto + verification → Prepare with `datasets` library → Train with confidence.**
+
+Start small:
+```bash
+# 1. Generate 1K math problems
+python generate_math.py --output data/raw.jsonl
+
+# 2. Verify + clean
+python verify.py data/raw.jsonl data/clean.parquet
+
+# 3. Push
+datasets-cli upload data/clean.parquet myusername/math-verified
+```
+
+Want a **template repo**? I can generate one for you (code + math). Just say the word.
+
 Here's a comprehensive guide to convert PDFs into datasets for Hugging Face or Kaggle:
 
 ## 1. **PDF Text Extraction Tools**
