@@ -1,4 +1,5 @@
-# AI_ML_Learning
+# AI_ML_Learning Trending and NEW! 
+- [DeepSeek OCR-V1](https://huggingface.co/deepseek-ai/DeepSeek-OCR)
 - [Everything about Transformers](https://www.krupadave.com/articles/everything-about-transformers)
 - [Cognition SWE 1-5](https://cognition.ai/blog/swe-1-5)
 - [Tinker Research and Teaching Grants](https://thinkingmachines.ai/blog/tinker-research-and-teaching-grants/)
@@ -29,6 +30,12 @@
 - [Routine: A Structural Planning Framework for LLM Agent System in Enterprise](https://arxiv.org/abs/2507.14447)
 - 
 A comprehensive collection of essential repositories and documentation for AI/ML developers, plus a complete Python environment for training machine learning models.
+
+Resources: TO SCRAPE
+https://www.technologyreview.com/
+www.github.com 
+arxiv.org
+
 
 ## Table of Contents
 - [Setup Guide](#setup-guide)
